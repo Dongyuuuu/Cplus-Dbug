@@ -11,10 +11,10 @@ public:
 };
 class BiTree {
 	BiTreeNode* Root;
-	int* PostOrder;		//ºó×º±éÀúÊý×é
-	int* InOrder;		//ÖÐ×º±éÀúÊý×é
-	int min_weight;		//×îÐ¡È¨Öµ
-	int len;			//Êý×éµÄ³¤¶È
+	int* PostOrder;		//åŽç¼€éåŽ†æ•°ç»„
+	int* InOrder;		//ä¸­ç¼€éåŽ†æ•°ç»„
+	int min_weight;		//æœ€å°æƒå€¼
+	int len;			//æ•°ç»„çš„é•¿åº¦
 	int pos;
 	BiTreeNode* CreatBitree(int* mid, int* last, int n);
 	void PreOrder(BiTreeNode* t);
@@ -22,10 +22,10 @@ public:
 	BiTree() {};
 	~BiTree() {};
 	void CreatTree(int n);
-	void PreOrder();  //ÏÈÐò±éÀú
+	void PreOrder();  //å…ˆåºéåŽ†
 	void print();
 };
-//¹¹Ôì¶þ²æÊ÷£¬ÀûÓÃÖÐÐò±éÀú£¬ºóÐò±éÀú½á¹û½¨Ê÷
+//æž„é€ äºŒå‰æ ‘ï¼Œåˆ©ç”¨ä¸­åºéåŽ†ï¼ŒåŽåºéåŽ†ç»“æžœå»ºæ ‘
 void BiTree::CreatTree(int n) {
 	pos = 0;
 	min_weight = 9999999;
@@ -38,7 +38,7 @@ void BiTree::CreatTree(int n) {
 		cin >> PostOrder[i];
 	Root = CreatBitree(InOrder, PostOrder, len);
 }
-//µÝ¹é½¨Ê÷
+//é€’å½’å»ºæ ‘
 BiTreeNode* BiTree::CreatBitree(int* mid, int* last, int n) {
 	BiTreeNode* t;
 	int i;
@@ -47,21 +47,21 @@ BiTreeNode* BiTree::CreatBitree(int* mid, int* last, int n) {
 	else {
 		t = new BiTreeNode();
 		t->weight = last[n - 1];
-		//Éú³É¸ù½Úµã
-		//Ñ°ÕÒÖÐÐò±éÀúÖÐºóÐò±éÀúµÄ×îºóÒ»¸öÔªËØ£¬¸ÃÔªËØÎª¸ù½áµã
+		//ç”Ÿæˆæ ¹èŠ‚ç‚¹
+		//å¯»æ‰¾ä¸­åºéåŽ†ä¸­åŽåºéåŽ†çš„æœ€åŽä¸€ä¸ªå…ƒç´ ï¼Œè¯¥å…ƒç´ ä¸ºæ ¹ç»“ç‚¹
 		for (i = 0; mid[i] != last[n - 1]; i++);
-		//¹¹Ôì×ó×ÓÊ÷
-		//ÖÐÐò±éÀúÖÐ¸ù½áµãµÄ×ó±ßÎª×ó×ÓÊ÷
+		//æž„é€ å·¦å­æ ‘
+		//ä¸­åºéåŽ†ä¸­æ ¹ç»“ç‚¹çš„å·¦è¾¹ä¸ºå·¦å­æ ‘
 		t->LeftChild = CreatBitree(mid, last, i);
-		//¹¹ÔìÓÒ×ÓÊ÷
-		//ÖÐÐò±éÀúÖÐ¸ù½áµãµÄÓÒ±ßÎªÓÒ×ÓÊ÷
+		//æž„é€ å³å­æ ‘
+		//ä¸­åºéåŽ†ä¸­æ ¹ç»“ç‚¹çš„å³è¾¹ä¸ºå³å­æ ‘
 		t->RightChild = CreatBitree(mid + i + 1, last + i, n - i - 1);
 	}
 	return t;
 }
-//¶¨ÒåÏÈÐò±éÀúº¯Êý£¨¸ù×óÓÒ£©
-//Ñ°ÕÒËùÓÐµÄÒ¶×Ó½áµã
-//Ñ°ÕÒ¶þ²æÊ÷Ò¶×Ó½áµãµÄ×îÐ¡È¨Öµ
+//å®šä¹‰å…ˆåºéåŽ†å‡½æ•°ï¼ˆæ ¹å·¦å³ï¼‰
+//å¯»æ‰¾æ‰€æœ‰çš„å¶å­ç»“ç‚¹
+//å¯»æ‰¾äºŒå‰æ ‘å¶å­ç»“ç‚¹çš„æœ€å°æƒå€¼
 void BiTree::PreOrder(BiTreeNode* t) {
 	if (t) {
 		if (!t->LeftChild && !t->RightChild) {
